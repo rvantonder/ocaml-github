@@ -458,6 +458,19 @@ type commit_activity_stat = {
 
 type commit_activity_stats = commit_activity_stat list
 
+type code_frequency_stat = int
+
+type code_frequency_stats = code_frequency_stat list
+
+type participation_stats = {
+  all: int list;
+  owner: int list;
+}
+
+type punch_card_stat = int list
+
+type punch_card_stats = punch_card_stat list
+
 type pull_links = {
   self: link;
   html: link;

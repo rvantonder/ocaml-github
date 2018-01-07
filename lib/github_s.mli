@@ -941,6 +941,21 @@ module type Github = sig
       ?token:Token.t ->
       user:string -> repo:string ->
       unit -> Github_t.commit_activity_stat Stream.t
+
+    val code_frequency :
+      ?token:Token.t ->
+      user:string -> repo:string ->
+      unit -> Github_t.code_frequency_stat Stream.t
+
+    val participation :
+      ?token:Token.t ->
+      user:string -> repo:string ->
+      unit -> Github_t.participation_stats Stream.t
+
+    val punch_card :
+      ?token:Token.t ->
+      user:string -> repo:string ->
+      unit -> Github_t.punch_card_stat Stream.t
   end
 
   (** The [Status] module provides the functionality of GitHub's
