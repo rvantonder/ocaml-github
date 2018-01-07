@@ -259,6 +259,19 @@ module Make(Env : Github_s.Env)(Time : Github_s.Time)(CL : Cohttp_lwt.S.Client)
     let repo_contributors_stats ~user ~repo =
       Uri.of_string (Printf.sprintf "%s/repos/%s/%s/stats/contributors" api user repo)
 
+    let repo_commit_activity_stats ~user ~repo =
+      Uri.of_string (Printf.sprintf "%s/repos/%s/%s/stats/commit_activity" api user repo)
+
+    (*
+    let repo_code_frequency_stats ~user ~repo =
+      Uri.of_string (Printf.sprintf "%s/repos/%s/%s/stats/code_frequency" api user repo)
+
+    let repo_participation_stats ~user ~repo =
+      Uri.of_string (Printf.sprintf "%s/repos/%s/%s/stats/participation" api user repo)
+
+    let repo_punch_card_stats ~user ~repo =
+      Uri.of_string (Printf.sprintf "%s/repos/%s/%s/stats/punch_card" api user repo)
+*)
     let repo_search =
       Uri.of_string (Printf.sprintf "%s/search/repositories" api)
 
@@ -1925,6 +1938,17 @@ module Make(Env : Github_s.Env)(Time : Github_s.Time)(CL : Cohttp_lwt.S.Client)
       API.get_stream ?token ~uri
         ~fail_handlers
         (fun b -> return (contributors_stats_of_string b))
+
+    let commit_activity ?token ~user ~repo () =
+      let uri = URI.repo_contributors_stats ~user ~repo in
+      let fail_handlers = [
+        API.code_handler
+          ~expected_code:`Accepted
+          (fun _ -> Lwt.return [])
+      ] in
+      API.get_stream ?token ~uri
+        ~fail_handlers
+        (fun b -> return (commit_activity_stats_of_string b))
   end
 
   module Event = struct

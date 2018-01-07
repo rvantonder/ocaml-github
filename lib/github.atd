@@ -450,6 +450,14 @@ type contributor_stats = {
 
 type contributors_stats = contributor_stats list
 
+type commit_activity_stat = {
+  days: int list;
+  total: int;
+  week: int;
+} <ocaml field_prefix="repo_activity_stats_">
+
+type commit_activity_stats = commit_activity_stat list
+
 type pull_links = {
   self: link;
   html: link;

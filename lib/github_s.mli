@@ -936,6 +936,11 @@ module type Github = sig
     (** [contributors ~user ~repo ()] is a stream of all contributor
         statistics for [user]/[repo]. The stream is empty if the
         data are not cached yet *)
+
+    val commit_activity :
+      ?token:Token.t ->
+      user:string -> repo:string ->
+      unit -> Github_t.commit_activity_stat Stream.t
   end
 
   (** The [Status] module provides the functionality of GitHub's
