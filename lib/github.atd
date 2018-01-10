@@ -458,7 +458,7 @@ type commit_activity_stat = {
 
 type commit_activity_stats = commit_activity_stat list
 
-type code_frequency_stat = int
+type code_frequency_stat = int list
 
 type code_frequency_stats = code_frequency_stat list
 
