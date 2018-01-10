@@ -354,15 +354,33 @@ type git_commit = {
   message: string;
 } <ocaml field_prefix="git_commit_">
 
+type parent = {
+  url: string;
+  sha: string;
+} <ocaml field_prefix="parent_">
+
+type parents = parent list
+
 type commit = {
   url: string;
   sha: string;
   git <json name="commit">: git_commit;
   ?author: user option; (* why? *)
   ?committer: user option; (* why? *)
+  parents: parents
 } <ocaml field_prefix="commit_">
 
 type commits = commit list
+
+type commit_stats = {
+  inherit change_status
+}
+
+type single_commit = {
+  inherit commit;
+  stats: commit_stats;
+  files: files;
+} <ocaml field_prefix="single_commit_">
 
 type repo = {
   id: int <ocaml repr="int64">;
@@ -862,8 +880,8 @@ type file = {
   additions: int;
   deletions: int;
   changes: int;
-  blob_url: string;
-  raw_url: string;
+  blob_url: string nullable;
+  raw_url: string nullable;
   ?patch: string option;
 } <ocaml field_prefix="file_">
 

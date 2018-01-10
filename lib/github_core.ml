@@ -1894,7 +1894,7 @@ module Make(Env : Github_s.Env)(Time : Github_s.Time)(CL : Cohttp_lwt.S.Client)
 
     let get_commit ?token ~user ~repo ~sha () =
       let uri = URI.repo_commit ~user ~repo ~sha in
-      API.get ?token ~uri (fun b -> return (commit_of_string b))
+      API.get ?token ~uri (fun b -> return (single_commit_of_string b))
 
     let get_tag ?token ~user ~repo ~sha () =
       let uri = URI.repo_tag ~user ~repo ~sha in
@@ -1913,7 +1913,7 @@ module Make(Env : Github_s.Env)(Time : Github_s.Time)(CL : Cohttp_lwt.S.Client)
         |`Commit -> (* lightweight tag, so get commit info *)
           get_commit ?token ~user ~repo ~sha ()
           >>~ fun c ->
-          return [name, c.commit_git.git_commit_author.info_date]
+          return [name, c.single_commit_git.git_commit_author.info_date]
         |`Tag ->
           get_tag ?token ~user ~repo ~sha ()
           >>~ fun t ->

@@ -850,7 +850,7 @@ module type Github = sig
     val get_commit :
       ?token:Token.t ->
       user:string -> repo:string -> sha:string ->
-      unit -> Github_t.commit Response.t Monad.t
+      unit -> Github_t.single_commit Response.t Monad.t
     (** [get_commit ~user ~repo ~sha ()] is commit [sha] in [user]/[repo]. *)
 
     val contributors :
